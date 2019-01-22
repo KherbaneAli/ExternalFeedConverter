@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExternalFeedExtractor.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp
 {
     class Program
     {
