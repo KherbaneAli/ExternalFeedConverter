@@ -10,11 +10,12 @@ namespace ExternalFeedConverter.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(String[] args)
         {
-            File.WriteAllLines("treesnew.csv", File.ReadAllLines(@"\_git\csharptraining\data\trees.csv").Where(l => !string.IsNullOrWhiteSpace(l)));
-
-            var treeData = File.ReadAllLines(@"\_git\csharptraining\treesnew.csv");
+            var fileSanitiser = new FileDataSanitiser();
+            fileSanitiser.Sanitise(@"..\..\src\ExternalFeedConverter.ConsoleApp\data\trees.csv", "trees1.csv");
+            
+            var treeData = File.ReadAllLines(@"..\..\src\ExternalFeedConverter.ConsoleApp\trees1.csv");
 
             var treeList = from treeInfo in treeData
                            let data = treeInfo.Split(',')
@@ -25,76 +26,91 @@ namespace ExternalFeedConverter.ConsoleApp
                                Height = data[2],
                                Volume = data[3],
                            };
-
-            foreach (var tree in treeList)
+            Console.WriteLine("| Index | Girth | Height | Volume |");
+            foreach (var tree in treeList.Skip(1))
             {
+                System.Threading.Thread.Sleep(50);
                 Console.WriteLine("| {0} | {1} | {2} | {3} |", tree.Index, tree.Girth, tree.Height, tree.Volume);
             }
-
-            Console.WriteLine("\nPlease enter which maximum value you would like to obtain: (girth/height/volume) ");
-            var input = Console.ReadLine();
-
+            
+            var input = "";
             int index = 0;
-
-            if (input.Equals("girth"))
-            {
-                Console.WriteLine("Obtaining the girth of widest tree...");
-
-                double widest = 0;
-
-                foreach (var tree in treeList.Skip(1))
-                {
-                    double current = Convert.ToDouble(tree.Girth);
-                    if (current > widest)
-                    {
-                        widest = current;
-                    }
-                    index = Convert.ToInt16(tree.Index) + 1;
-                }
-
-                Console.WriteLine("The widest girth is ...... {0}in of Tree with index ..... {1}", widest, index);
-            }
-            else if (input.Equals("height"))
-            {
-                Console.WriteLine("Obtaining the height of tallest tree...");
-
-                int tallest = 0;
-
-                foreach (var tree in treeList.Skip(1))
-                {
-                    int current = Convert.ToInt16(tree.Height);
-                    if (current > tallest)
-                    {
-                        tallest = current;
-                        index = Convert.ToInt16(tree.Index) + 1;
-                    }
-                }
-                Console.WriteLine("The tallest height is ...... {0}ft of Tree with index ..... {1}", tallest, index);
-            }
-            else if (input.Equals("volume"))
-            {
-                Console.WriteLine("Obtaining the volume of biggest tree...");
-
-                double biggest = 0;
-
-                foreach (var tree in treeList.Skip(1))
-                {
-                    double current = Convert.ToDouble(tree.Volume);
-                    if (current > biggest)
-                    {
-                        biggest = current;
-                    }
-                    index = Convert.ToInt16(tree.Index) + 1;
-                }
-
-                Console.WriteLine("The largest volume is ...... {0}ft^3 of Tree with index ..... {1}", biggest, index);
-            }
-            else
-            {
-                Console.WriteLine("Invalid input!");
+            bool calculated = false;
+            while (!calculated)
+            {   
+                Console.Write("\nPlease enter the attribute (girth/height/volume) you would like to find the largest of: ");
+                input = Console.ReadLine();
+                calculated = calculateLargest(input, treeList, ref index);
+                
             }
 
             Console.ReadLine();
+        }
+
+        private static bool calculateLargest(string input, IEnumerable<dynamic> treeList, ref int index)
+        {
+            double currentLargest = 0;
+            string measurement = "";
+            switch (input)
+            {
+                case "girth":
+                    measurement = "in";
+                    foreach (var tree in treeList.Skip(1))
+                    {
+                        double current = Convert.ToDouble((string) tree.Girth);
+                        if (current > currentLargest)
+                        {
+                            currentLargest = current;
+                        }
+
+                        index = Convert.ToInt16((string) tree.Index) + 1;
+                    }
+                    break;
+                case "height":
+                    measurement = "ft";
+                    foreach (var tree in treeList.Skip(1))
+                    {
+                        int current = Convert.ToInt16((string) tree.Height);
+                        if (current > currentLargest)
+                        {
+                            currentLargest = current;
+                            index = Convert.ToInt16((string) tree.Index) + 1;
+                        }
+                    }
+                    break;
+                case "volume":
+                    measurement = "ft^3";
+                    foreach (var tree in treeList.Skip(1))
+                    {
+                        double current = Convert.ToDouble((string) tree.Volume);
+                        if (current > currentLargest)
+                        {
+                            currentLargest = current;
+                        }
+
+                        index = Convert.ToInt16((string) tree.Index) + 1;
+                    }
+                    break;
+                case "exit":
+                    System.Threading.Thread.Sleep(500);
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid input! Try again.. or enter 'exit' to terminate.");
+                    return false;
+            }
+
+            string largest = currentLargest.ToString() + measurement;
+            Console.WriteLine("\nObtaining tree with the largest {0}...", input);
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine("\nTree Index: {0} Tree {1}: {2}.", index, input, largest);
+            
+            Console.Write("Would you like to calculate another value? (y/n): ");
+            var inp = Console.ReadLine();
+
+            if (inp.Equals("n"))
+                return true;
+            return true;
         }
     }
 }
