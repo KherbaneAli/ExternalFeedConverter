@@ -43,8 +43,12 @@ namespace ExternalFeedConverter.ConsoleApp
         
         public static string FirstLetterToUpper(string s)
         {
+            if (string.IsNullOrEmpty(s))
+            {
+                return "";
+            }
+            
             string h = s.ToLower(); // first step to convert entire string to lower case
-            Console.WriteLine("\nObtaining tree with the largest {0}...", h);
             char[] a = h.ToCharArray(); // second step to create an array of characters from string
             a[0] = char.ToUpper(a[0]); // third step to turn first character into upper case
             return new string(a); // final step is to return new string
@@ -68,7 +72,7 @@ namespace ExternalFeedConverter.ConsoleApp
                     measurement = "ft^3";
                     currentLargest = findLargest(input);
                     break;
-                case "exit":
+                case "Exit":
                     System.Threading.Thread.Sleep(500);
                     Environment.Exit(0);
                     break;
@@ -91,6 +95,8 @@ namespace ExternalFeedConverter.ConsoleApp
         public static double findLargest(string input)
         {
             double currentLargest = 0;
+            
+            Console.WriteLine("\nObtaining tree with the largest {0}...", input);
             
             var fileLoader = new FileDataUtilities();
             var treeList = fileLoader.LoadData();
