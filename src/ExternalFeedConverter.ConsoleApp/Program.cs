@@ -44,7 +44,6 @@ namespace ExternalFeedConverter.ConsoleApp
                 Console.WriteLine($"Error: {e.Message}");
             }
         }
-
     }
 
     public static class Commands
