@@ -1,20 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
+using ExternalFeedConverter.ConsoleApp.Extensions;
+using Microsoft.Extensions.Configuration;
 
 namespace ExternalFeedConverter.ConsoleApp
 {
     public static class Program
     {
-        private const string DefaultFileLocation = @"..\..\src\ExternalFeedConverter.ConsoleApp\data\trees.csv";
-
         public static void Main(string[] args)
         {
             try
             {
-                var inputFile = args.Any()
-                    ? DefaultFileLocation
-                    : args.First();
+                var configuration = BuildConfiguration(args);
+                
+                var commandValues = new List<CommandValue>();
+                configuration.GetSection("CalculationOption").Bind(commandValues);
+
+                var inputFile = configuration.GetValue<string>("DefaultFileLocation");
 
                 var fileImporter = new FileImporter();
                 var dataItems = fileImporter.ImportFile(inputFile);
@@ -24,7 +29,7 @@ namespace ExternalFeedConverter.ConsoleApp
                 var enumerable = dataItems.ToList();
                 outputWriter.PrintTable(enumerable.ToList());
 
-                var calculator = new Calculator();
+                var calculator = new Calculator(commandValues);
                 var calculated = false;
 
                 while (calculated == false)
@@ -36,7 +41,7 @@ namespace ExternalFeedConverter.ConsoleApp
 
                     Thread.Sleep(1000);
 
-                    calculated = calculator.CalculateLargest(input, enumerable);
+                    calculated = calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
                 }
             }
             catch (Exception e)
@@ -44,23 +49,14 @@ namespace ExternalFeedConverter.ConsoleApp
                 Console.WriteLine($"Error: {e.Message}");
             }
         }
-    }
 
-    public static class Commands
-    {
-        public const string Girth = "girth";
-        public const string Height = "height";
-        public const string Volume = "volume";
-        public const string Exit = "exit";
+        private static IConfiguration BuildConfiguration(string[] args)
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .AddCommandLine(args)
+                .Build();
+        }
     }
 }
-
-
-/*
- 1- Breaking the Program class to exclude what is not relevant to the class 
- 2- Read the mapping for measurement from configuration. Json
-         https://garywoodfine.com/configuration-api-net-core-console-application/
-         https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
-         
- * 
-*/

@@ -1,41 +1,50 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.FileExtensions;
+using Microsoft.Extensions.Configuration.Json;
 using System.Linq;
+using ExternalFeedConverter.ConsoleApp.Extensions;
 
 namespace ExternalFeedConverter.ConsoleApp
 {
     public class Calculator
     {
+        private readonly List<CommandValue> _commandValues;
+
+        public Calculator(List<CommandValue> commandValues)
+        {
+            _commandValues = commandValues ?? throw new ArgumentNullException(nameof(commandValues));
+        }
+
         public bool CalculateLargest(string input, IEnumerable<DataItem> dataItems)
         {
             double currentLargest = 0;
-
-            var measurement = string.Empty;
-
-            switch (input.ToLower())
+            
+            switch (input)
             {
                 case Commands.Girth:
-                    measurement = "in";
                     currentLargest = dataItems.Max(d => d.Girth.ToDouble());
                     break;
                 case Commands.Height:
-                    measurement = "ft";
                     currentLargest = dataItems.Max(d => d.Height.ToDouble());
                     break;
                 case Commands.Volume:
-                    measurement = "ft^3";
                     currentLargest = dataItems.Max(d => d.Volume.ToDouble());
                     break;
                 case Commands.Exit:
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("\nInvalid input! Try again.. or enter 'exit' to terminate.");
+                    Console.WriteLine($"\n{input} is an invalid input! Try again.. or enter 'exit' to terminate.");
                     return false;
             }
 
-            Console.WriteLine("\nLargest Tree {0}: {1}{2}.", input, currentLargest, measurement);
-
+            var value = _commandValues.First(m => m.Name.Equals(input,StringComparison.CurrentCultureIgnoreCase))?.Value;
+            
+            Console.WriteLine($"\nLargest Tree {input}: {currentLargest}{value}.");
+            
             Console.WriteLine("\nWould you like to calculate another value? (y/n): ");
             var inp = Console.ReadLine();
 
