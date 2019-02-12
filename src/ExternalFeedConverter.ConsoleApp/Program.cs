@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using ExternalFeedConverter.ConsoleApp.Extensions;
+using ExternalFeedConverter.ConsoleApp.File;
 using Microsoft.Extensions.Configuration;
 
 namespace ExternalFeedConverter.ConsoleApp

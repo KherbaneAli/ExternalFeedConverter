@@ -1,4 +1,4 @@
-namespace ExternalFeedConverter.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp.Data
 {
     public class DataItem
     {

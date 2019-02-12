@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
+using ExternalFeedConverter.ConsoleApp.Data;
 
-namespace ExternalFeedConverter.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp.File
 {
     public class FileImporter
     {
@@ -17,7 +17,7 @@ namespace ExternalFeedConverter.ConsoleApp
 
         public IEnumerable<DataItem> ImportFile(string input)
         {
-            if (!File.Exists(input))
+            if (!System.IO.File.Exists(input))
                 throw new Exception($"File {input} is not found");
 
             var sanitisedData = _fileSanitiser.Sanitise(input);

@@ -5,11 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.FileExtensions;
 using Microsoft.Extensions.Configuration.Json;
 using System.Linq;
+using ExternalFeedConverter.ConsoleApp.Data;
 using ExternalFeedConverter.ConsoleApp.Extensions;
 
 namespace ExternalFeedConverter.ConsoleApp
 {
-    public class Calculator
+    public class Calculator : ICalculator 
     {
         private readonly List<CommandValue> _commandValues;
 
