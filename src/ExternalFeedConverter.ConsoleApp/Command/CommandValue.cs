@@ -1,4 +1,4 @@
-namespace ExternalFeedConverter.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp.Command
 {
     public class CommandValue : ICommandValue
     {

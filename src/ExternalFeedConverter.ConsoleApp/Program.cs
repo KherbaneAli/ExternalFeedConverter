@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using ExternalFeedConverter.ConsoleApp.Command;
 using ExternalFeedConverter.ConsoleApp.Extensions;
 using ExternalFeedConverter.ConsoleApp.File;
+using ExternalFeedConverter.ConsoleApp.Output;
 using Microsoft.Extensions.Configuration;
 
 namespace ExternalFeedConverter.ConsoleApp
@@ -13,6 +15,7 @@ namespace ExternalFeedConverter.ConsoleApp
     {
         public static void Main(string[] args)
         {
+            
             try
             {
                 var configuration = BuildConfiguration(args);
@@ -30,7 +33,7 @@ namespace ExternalFeedConverter.ConsoleApp
                 var enumerable = dataItems.ToList();
                 outputWriter.PrintTable(enumerable.ToList());
 
-                var calculator = new Calculator(commandValues);
+                var calculator = new Calculator.Calculator(commandValues);
                 var calculated = false;
 
                 while (calculated == false)

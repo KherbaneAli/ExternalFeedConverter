@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.FileExtensions;
-using Microsoft.Extensions.Configuration.Json;
 using System.Linq;
+using ExternalFeedConverter.ConsoleApp.Command;
 using ExternalFeedConverter.ConsoleApp.Data;
 using ExternalFeedConverter.ConsoleApp.Extensions;
 
-namespace ExternalFeedConverter.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp.Calculator
 {
     public class Calculator : ICalculator 
     {

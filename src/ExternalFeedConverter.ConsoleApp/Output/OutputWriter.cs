@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using ExternalFeedConverter.ConsoleApp.Data;
 
-namespace ExternalFeedConverter.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp.Output
 {
     public class OutputWriter : IOutputWriter
     {

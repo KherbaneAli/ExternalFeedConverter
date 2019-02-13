@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ExternalFeedConverter.ConsoleApp.Data;
 
-namespace ExternalFeedConverter.ConsoleApp
+namespace ExternalFeedConverter.ConsoleApp.Calculator
 {
     public interface ICalculator
     {
