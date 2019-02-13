@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace ExternalFeedConverter.ConsoleApp.File
 {
-    public class FileSanitiser
+    public class FileSanitiser : IFileSanitiser
     {
         public string[] Sanitise(string input)
         {

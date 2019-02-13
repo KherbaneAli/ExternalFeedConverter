@@ -1,6 +1,6 @@
 namespace ExternalFeedConverter.ConsoleApp.Data
 {
-    public class DataItem
+    public class DataItem : IDataItem
     {
         public DataItem(string index, string girth, string height, string volume)
         {

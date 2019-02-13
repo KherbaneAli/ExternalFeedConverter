@@ -4,7 +4,7 @@ using ExternalFeedConverter.ConsoleApp.Data;
 
 namespace ExternalFeedConverter.ConsoleApp.File
 {
-    public class FileImporter
+    public class FileImporter : IFileImporter
     {
         private readonly FileLoader _fileLoader;
         private readonly FileSanitiser _fileSanitiser;

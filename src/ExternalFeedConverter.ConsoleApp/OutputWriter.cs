@@ -5,7 +5,7 @@ using ExternalFeedConverter.ConsoleApp.Data;
 
 namespace ExternalFeedConverter.ConsoleApp
 {
-    public class OutputWriter
+    public class OutputWriter : IOutputWriter
     {
         public void PrintTable(IEnumerable<DataItem> treeList)
         {

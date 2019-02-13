@@ -4,7 +4,7 @@ using ExternalFeedConverter.ConsoleApp.Data;
 
 namespace ExternalFeedConverter.ConsoleApp.File
 {
-    public class FileLoader
+    public class FileLoader : IFileLoader
     {
         public IEnumerable<DataItem> LoadData(string[] rows)
         {
