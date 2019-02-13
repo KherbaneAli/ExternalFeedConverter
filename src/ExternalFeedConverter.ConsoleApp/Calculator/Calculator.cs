@@ -7,7 +7,7 @@ using ExternalFeedConverter.ConsoleApp.Extensions;
 
 namespace ExternalFeedConverter.ConsoleApp.Calculator
 {
-    public class Calculator : ICalculator 
+    public class Calculator : ICalculator
     {
         private readonly List<CommandValue> _commandValues;
 
@@ -19,7 +19,7 @@ namespace ExternalFeedConverter.ConsoleApp.Calculator
         public bool CalculateLargest(string input, IEnumerable<DataItem> dataItems)
         {
             double currentLargest = 0;
-            
+
             switch (input)
             {
                 case Commands.Girth:
@@ -39,10 +39,11 @@ namespace ExternalFeedConverter.ConsoleApp.Calculator
                     return false;
             }
 
-            var value = _commandValues.First(m => m.Name.Equals(input,StringComparison.CurrentCultureIgnoreCase))?.Value;
-            
+            var value = _commandValues.First(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
+                ?.Value;
+
             Console.WriteLine($"\nLargest Tree {input}: {currentLargest}{value}.");
-            
+
             Console.WriteLine("\nWould you like to calculate another value? (y/n): ");
             var inp = Console.ReadLine();
 

@@ -15,11 +15,10 @@ namespace ExternalFeedConverter.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            
             try
             {
                 var configuration = BuildConfiguration(args);
-                
+
                 var commandValues = new List<CommandValue>();
                 configuration.GetSection("CalculationOption").Bind(commandValues);
 
@@ -27,9 +26,9 @@ namespace ExternalFeedConverter.ConsoleApp
 
                 var fileImporter = new FileImporter();
                 var dataItems = fileImporter.ImportFile(inputFile);
-        
+
                 var outputWriter = new OutputWriter();
-                
+
                 var enumerable = dataItems.ToList();
                 outputWriter.PrintTable(enumerable.ToList());
 
