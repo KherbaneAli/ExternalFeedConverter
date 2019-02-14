@@ -1,6 +1,6 @@
-namespace ExternalFeedConverter.ConsoleApp.Command
+namespace ExternalFeedConverter.Core.Calculator
 {
-    public class CommandValue : ICommandValue
+    public class CommandValue 
     {
         public string Name { get; set; }
         public string Value { get; set; }

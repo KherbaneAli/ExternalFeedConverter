@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading;
-using ExternalFeedConverter.ConsoleApp.Command;
-using ExternalFeedConverter.ConsoleApp.Extensions;
-using ExternalFeedConverter.ConsoleApp.File;
-using ExternalFeedConverter.ConsoleApp.Output;
+using ExternalFeedConverter.Core;
+using ExternalFeedConverter.Core.Calculator;
+using ExternalFeedConverter.Core.File;
+using ExternalFeedConverter.Core.Output;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExternalFeedConverter.ConsoleApp
 {
@@ -18,39 +17,38 @@ namespace ExternalFeedConverter.ConsoleApp
             try
             {
                 var configuration = BuildConfiguration(args);
+                var provider = BuildServiceProvider(configuration);
 
-                var commandValues = new List<CommandValue>();
-                configuration.GetSection("CalculationOption").Bind(commandValues);
+                var importProcess = provider.GetRequiredService<IFileImportProcess>();
+                importProcess.Run();
 
-                var inputFile = configuration.GetValue<string>("DefaultFileLocation");
-
-                var fileImporter = new FileImporter();
-                var dataItems = fileImporter.ImportFile(inputFile);
-
-                var outputWriter = new OutputWriter();
-
-                var enumerable = dataItems.ToList();
-                outputWriter.PrintTable(enumerable.ToList());
-
-                var calculator = new Calculator.Calculator(commandValues);
-                var calculated = false;
-
-                while (calculated == false)
-                {
-                    Console.Write(
-                        "\nPlease enter the attribute (girth/height/volume) you would like to find the largest of: ");
-
-                    var input = Console.ReadLine();
-
-                    Thread.Sleep(1000);
-
-                    calculated = calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
-                }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error: {e.Message}");
             }
+        }
+
+        private static IServiceProvider BuildServiceProvider(IConfiguration configuration)
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<IFileImporter, FileImporter>();
+            services.AddTransient<IOutputWriter, OutputWriter>();
+            services.AddTransient<IFileLoader, FileLoader>();
+            services.AddTransient<IFileSanitiser, FileSanitiser>();
+            services.AddTransient<IFileImportProcess, FileImportProcess>();
+
+            services.AddSingleton(configuration);
+            
+            services.AddTransient<ICalculator>(sp =>
+            {
+                var commandValues = new List<CommandValue>();
+                configuration.GetSection("CalculationOption").Bind(commandValues);
+                
+                return new Calculator(commandValues);
+            });
+
+            return services.BuildServiceProvider();
         }
 
         private static IConfiguration BuildConfiguration(string[] args)

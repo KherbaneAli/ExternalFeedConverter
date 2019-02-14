@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using ExternalFeedConverter.ConsoleApp.Data;
+using ExternalFeedConverter.Core.Data;
 
-namespace ExternalFeedConverter.ConsoleApp.Output
+namespace ExternalFeedConverter.Core.Output
 {
     public interface IOutputWriter
     {

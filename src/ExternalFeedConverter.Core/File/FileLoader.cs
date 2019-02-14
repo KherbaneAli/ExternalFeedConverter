@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using ExternalFeedConverter.ConsoleApp.Data;
+using ExternalFeedConverter.Core.Data;
 
-namespace ExternalFeedConverter.ConsoleApp.File
+namespace ExternalFeedConverter.Core.File
 {
     public class FileLoader : IFileLoader
     {

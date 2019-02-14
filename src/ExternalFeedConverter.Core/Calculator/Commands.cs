@@ -1,4 +1,4 @@
-namespace ExternalFeedConverter.ConsoleApp.Command
+namespace ExternalFeedConverter.Core.Calculator
 {
     public static class Commands
     {

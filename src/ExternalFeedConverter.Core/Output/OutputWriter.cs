@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using ExternalFeedConverter.ConsoleApp.Data;
+using ExternalFeedConverter.Core.Data;
 
-namespace ExternalFeedConverter.ConsoleApp.Output
+namespace ExternalFeedConverter.Core.Output
 {
     public class OutputWriter : IOutputWriter
     {

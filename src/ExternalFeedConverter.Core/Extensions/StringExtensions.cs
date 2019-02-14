@@ -1,4 +1,4 @@
-namespace ExternalFeedConverter.ConsoleApp.Extensions
+namespace ExternalFeedConverter.Core.Extensions
 {
     public static class StringExtensions
     {

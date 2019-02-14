@@ -1,6 +1,8 @@
-namespace ExternalFeedConverter.ConsoleApp.Data
+using System.Collections.Generic;
+
+namespace ExternalFeedConverter.Core.Data
 {
-    public class DataItem : IDataItem
+    public class DataItem
     {
         public DataItem(string index, string girth, string height, string volume)
         {

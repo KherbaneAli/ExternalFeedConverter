@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
-using ExternalFeedConverter.ConsoleApp.Data;
+using ExternalFeedConverter.Core.Data;
 
-namespace ExternalFeedConverter.ConsoleApp.File
+namespace ExternalFeedConverter.Core.File
 {
     public class FileImporter : IFileImporter
     {
-        private readonly FileLoader _fileLoader;
-        private readonly FileSanitiser _fileSanitiser;
+        private readonly IFileLoader _fileLoader;
+        private readonly IFileSanitiser _fileSanitiser;
 
-        public FileImporter()
+        public FileImporter(IFileLoader fileLoader, IFileSanitiser fileSanitiser)
         {
-            _fileSanitiser = new FileSanitiser();
-            _fileLoader = new FileLoader();
+            _fileLoader = fileLoader ?? throw new ArgumentNullException(nameof(fileLoader));
+            _fileSanitiser = fileSanitiser ?? throw new ArgumentNullException(nameof(fileSanitiser));
         }
 
         public IEnumerable<DataItem> ImportFile(string input)

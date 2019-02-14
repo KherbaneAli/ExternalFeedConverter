@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace ExternalFeedConverter.ConsoleApp.File
+namespace ExternalFeedConverter.Core.File
 {
     public class FileSanitiser : IFileSanitiser
     {
