@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using ExternalFeedConverter.Core;
 using ExternalFeedConverter.Core.Calculator;
-using ExternalFeedConverter.Core.File;
+using ExternalFeedConverter.Core.Files;
 using ExternalFeedConverter.Core.Output;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +37,7 @@ namespace ExternalFeedConverter.ConsoleApp
             services.AddTransient<IFileLoader, FileLoader>();
             services.AddTransient<IFileSanitiser, FileSanitiser>();
             services.AddTransient<IFileImportProcess, FileImportProcess>();
+            services.AddTransient<IFileProvider, FileProvider>();
 
             services.AddSingleton(configuration);
             

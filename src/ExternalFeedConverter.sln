@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalFeedConverter.Conso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalFeedConverter.Core", "ExternalFeedConverter.Core\ExternalFeedConverter.Core.csproj", "{7C497BDE-9A43-40AA-A647-7FAB49C4A570}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalFeedConverter.Core.UnitTests", "ExternalFeedConverter.Core.UnitTests\ExternalFeedConverter.Core.UnitTests.csproj", "{A4E9399A-3D7D-49F9-848E-C63505C4839F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{7C497BDE-9A43-40AA-A647-7FAB49C4A570}.Release|x64.Build.0 = Release|Any CPU
 		{7C497BDE-9A43-40AA-A647-7FAB49C4A570}.Release|x86.ActiveCfg = Release|Any CPU
 		{7C497BDE-9A43-40AA-A647-7FAB49C4A570}.Release|x86.Build.0 = Release|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Debug|x64.Build.0 = Debug|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Debug|x86.Build.0 = Debug|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Release|x64.ActiveCfg = Release|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Release|x64.Build.0 = Release|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Release|x86.ActiveCfg = Release|Any CPU
+		{A4E9399A-3D7D-49F9-848E-C63505C4839F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

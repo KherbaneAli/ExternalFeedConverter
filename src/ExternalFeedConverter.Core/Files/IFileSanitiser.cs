@@ -1,4 +1,4 @@
-namespace ExternalFeedConverter.Core.File
+namespace ExternalFeedConverter.Core.Files
 {
     public interface IFileSanitiser
     {

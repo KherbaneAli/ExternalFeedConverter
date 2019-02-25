@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using ExternalFeedConverter.Core.Calculator;
 using ExternalFeedConverter.Core.Extensions;
-using ExternalFeedConverter.Core.File;
+using ExternalFeedConverter.Core.Files;
 using ExternalFeedConverter.Core.Output;
 using Microsoft.Extensions.Configuration;
 

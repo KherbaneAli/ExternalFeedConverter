@@ -28,8 +28,6 @@ namespace ExternalFeedConverter.Core.Calculator
             if (input == Commands.Exit)
                 Environment.Exit(0);
 
-            double currentLargest = 0;
-
 
             if (_selectors.ContainsKey(input) == false)
             {
@@ -37,7 +35,7 @@ namespace ExternalFeedConverter.Core.Calculator
                 return false;
             }
            
-            currentLargest = dataItems.Max(d => _selectors[input](d).ToDouble());
+            double currentLargest = dataItems.Max(d => _selectors[input](d).ToDouble());
 
             var value = _commandValues.First(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
                 ?.Value;

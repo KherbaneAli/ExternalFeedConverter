@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ExternalFeedConverter.Core.Data;
 
-namespace ExternalFeedConverter.Core.File
+namespace ExternalFeedConverter.Core.Files
 {
     public class FileImporter : IFileImporter
     {
