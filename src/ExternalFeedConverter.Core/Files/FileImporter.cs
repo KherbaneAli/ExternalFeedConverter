@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using ExternalFeedConverter.Core.Data;
 
@@ -20,10 +21,20 @@ namespace ExternalFeedConverter.Core.Files
             if (!System.IO.File.Exists(input))
                 throw new Exception($"File {input} is not found");
 
-            var sanitisedData = _fileSanitiser.Sanitise(input);
-            var data = _fileLoader.LoadData(sanitisedData);
+            var sanitisedData = ReturnSanitisedData(input);
+            var data = ReturnLoadedData(sanitisedData);
 
             return data;
+        }
+
+        public string[] ReturnSanitisedData(string input)
+        {
+            return _fileSanitiser.Sanitise(input);
+        }
+
+        public IEnumerable<DataItem> ReturnLoadedData(string[] sanitisedData)
+        {
+            return _fileLoader.LoadData(sanitisedData);
         }
     }
 }

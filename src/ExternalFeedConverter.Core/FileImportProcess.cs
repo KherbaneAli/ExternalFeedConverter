@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using ExternalFeedConverter.Core.Calculator;
+using ExternalFeedConverter.Core.Data;
 using ExternalFeedConverter.Core.Extensions;
 using ExternalFeedConverter.Core.Files;
 using ExternalFeedConverter.Core.Output;
@@ -27,8 +30,8 @@ namespace ExternalFeedConverter.Core
         
         public void Run()
         {
-            var inputFile = _configuration.GetValue<string>("DefaultFileLocation");
-            var dataItems = _fileImporter.ImportFile(inputFile);
+            var inputFile = ReturnFileLocation();
+            var dataItems = ReturnImportedFile(inputFile);
 
             var enumerable = dataItems.ToList();
             _outputWriter.PrintTable(enumerable.ToList());
@@ -46,6 +49,16 @@ namespace ExternalFeedConverter.Core
 
                 calculated = _calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
             }
+        }
+
+        public IEnumerable<DataItem> ReturnImportedFile(string inputFile)
+        {
+            return _fileImporter.ImportFile(inputFile);
+        }
+
+        public string ReturnFileLocation()
+        {
+            return _configuration.GetValue<string>("DefaultFileLocation");
         }
     }
 }

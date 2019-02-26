@@ -8,7 +8,7 @@ namespace ExternalFeedConverter.Core.Calculator
 {
     public class Calculator : ICalculator
     {
-        private readonly List<CommandValue> _commandValues;
+        public readonly List<CommandValue> _commandValues;
 
         private readonly Dictionary<string, Func<DataItem, string>> _selectors =
             new Dictionary<string, Func<DataItem, string>>
@@ -34,8 +34,8 @@ namespace ExternalFeedConverter.Core.Calculator
                 Console.WriteLine($"\n{input} is an invalid input! Try again.. or enter 'exit' to terminate.");
                 return false;
             }
-           
-            double currentLargest = dataItems.Max(d => _selectors[input](d).ToDouble());
+            
+            double currentLargest = ReturnLargest(input, dataItems);
 
             var value = _commandValues.First(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
                 ?.Value;
@@ -46,6 +46,11 @@ namespace ExternalFeedConverter.Core.Calculator
             var inp = Console.ReadLine();
 
             return inp != null && !inp.Equals("y");
+        }
+
+        public double ReturnLargest(string input, IEnumerable<DataItem> dataItems)
+        {
+            return dataItems.Max(d => _selectors[input](d).ToDouble());
         }
     }
 }
