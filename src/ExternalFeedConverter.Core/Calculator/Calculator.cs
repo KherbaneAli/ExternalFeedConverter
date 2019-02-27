@@ -8,7 +8,7 @@ namespace ExternalFeedConverter.Core.Calculator
 {
     public class Calculator : ICalculator
     {
-        public readonly List<CommandValue> _commandValues;
+        private readonly List<CommandValue> _commandValues;
 
         private readonly Dictionary<string, Func<DataItem, string>> _selectors =
             new Dictionary<string, Func<DataItem, string>>
