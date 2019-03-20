@@ -1,3 +1,1 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/KherbaneAli/ExternalFeedConverter/badge.svg?targetFile=src%2FExternalFeedConverter.ConsoleApp%2FExternalFeedConverter.ConsoleApp.csproj)](https://snyk.io/test/github/KherbaneAli/ExternalFeedConverter?targetFile=src%2FExternalFeedConverter.ConsoleApp%2FExternalFeedConverter.ConsoleApp.csproj)
-
-<img src="https://camo.githubusercontent.com/45aad6d50cc48a0e4ac9a1da135afdffa7795359/68747470733a2f2f696d672e736869656c64732e696f2f6e6f64652f762f40796575746563682d6c61622f6163636570742d646f742d706174682e7376673f7374796c653d666c6174" alt="npm Version" data-canonical-src="https://img.shields.io/node/v/@yeutech-lab/accept-dot-path.svg?style=flat" style="max-width:100%;">
