@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace ExternalFeedConverter.Core.Data
 {
     public class DataItem

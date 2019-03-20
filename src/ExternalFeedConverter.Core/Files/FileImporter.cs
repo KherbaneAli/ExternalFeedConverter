@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using ExternalFeedConverter.Core.Data;
 
@@ -26,6 +25,8 @@ namespace ExternalFeedConverter.Core.Files
 
             return data;
         }
+
+    
 
         public string[] ReturnSanitisedData(string input)
         {

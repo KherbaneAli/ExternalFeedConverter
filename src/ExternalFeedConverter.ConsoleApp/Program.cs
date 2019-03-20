@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ExternalFeedConverter.Core;
 using ExternalFeedConverter.Core.Calculator;
@@ -8,8 +9,10 @@ using ExternalFeedConverter.Core.Output;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+// Entity or Dapper for DB
 namespace ExternalFeedConverter.ConsoleApp
 {
+    [ExcludeFromCodeCoverage]
     public static class Program
     {
         public static void Main(string[] args)
@@ -20,8 +23,8 @@ namespace ExternalFeedConverter.ConsoleApp
                 var provider = BuildServiceProvider(configuration);
 
                 var importProcess = provider.GetRequiredService<IFileImportProcess>();
-                importProcess.Run();
 
+                importProcess.Run();
             }
             catch (Exception e)
             {
@@ -48,7 +51,6 @@ namespace ExternalFeedConverter.ConsoleApp
                 
                 return new Calculator(commandValues);
             });
-
             return services.BuildServiceProvider();
         }
 

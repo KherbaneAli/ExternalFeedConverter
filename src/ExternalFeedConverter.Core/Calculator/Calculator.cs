@@ -23,34 +23,26 @@ namespace ExternalFeedConverter.Core.Calculator
             _commandValues = commandValues ?? throw new ArgumentNullException(nameof(commandValues));
         }
 
-        public bool CalculateLargest(string input, IEnumerable<DataItem> dataItems)
+        public double CalculateLargest(string input, IEnumerable<DataItem> dataItems)
         {
             if (input == Commands.Exit)
                 Environment.Exit(0);
 
-
             if (_selectors.ContainsKey(input) == false)
             {
                 Console.WriteLine($"\n{input} is an invalid input! Try again.. or enter 'exit' to terminate.");
-                return false;
+                return -1;
             }
             
-            double currentLargest = ReturnLargest(input, dataItems);
+            double currentLargest = dataItems.Max(d => _selectors[input](d).ToDouble());
 
-            var value = _commandValues.First(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
+            var value = _commandValues.FirstOrDefault(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
                 ?.Value;
 
             Console.WriteLine($"\nLargest Tree {input}: {currentLargest}{value}.");
 
-            Console.WriteLine("\nWould you like to calculate another value? (y/n): ");
-            var inp = Console.ReadLine();
-
-            return inp != null && !inp.Equals("y");
+            return currentLargest;
         }
-
-        public double ReturnLargest(string input, IEnumerable<DataItem> dataItems)
-        {
-            return dataItems.Max(d => _selectors[input](d).ToDouble());
-        }
+        
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,18 +26,26 @@ namespace ExternalFeedConverter.Core
             _calculator = calculator ?? throw new ArgumentNullException(nameof(calculator));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
-        
+
         public void Run()
         {
             var inputFile = ReturnFileLocation();
-            var dataItems = ReturnImportedFile(inputFile);
+            var dataItems = LoadData(inputFile);
 
-            var enumerable = dataItems.ToList();
-            _outputWriter.PrintTable(enumerable.ToList());
-                
-            var calculated = false;
+            var treeList = dataItems as DataItem[] ?? dataItems.ToArray();
+            _outputWriter.PrintTable(treeList);
+            
+            var enumerable = treeList.ToList();
 
-            while (calculated == false)
+            CalculateMax(enumerable);
+            
+        }
+        
+        public void CalculateMax(List<DataItem> enumerable)
+        {
+            var finished = false;
+
+            while (finished == false)
             {
                 Console.Write(
                     "\nPlease enter the attribute (girth/height/volume) you would like to find the largest of: ");
@@ -47,11 +54,16 @@ namespace ExternalFeedConverter.Core
 
                 Thread.Sleep(1000);
 
-                calculated = _calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
+                var calculated = _calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
+                
+                if (!(calculated > 0)) continue;
+                Console.WriteLine("\nWould you like to calculate another value? (y/n): ");
+                var inp = Console.ReadLine();
+                finished = inp != null && !inp.Equals("y");
             }
         }
 
-        public IEnumerable<DataItem> ReturnImportedFile(string inputFile)
+        public IEnumerable<DataItem> LoadData(string inputFile)
         {
             return _fileImporter.ImportFile(inputFile);
         }
