@@ -38,7 +38,7 @@ namespace ExternalFeedConverter.Core
             var enumerable = treeList.ToList();
 
             CalculateMax(enumerable);
-            
+           
         }
         
         public void CalculateMax(List<DataItem> enumerable)
