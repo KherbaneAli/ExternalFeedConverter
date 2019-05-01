@@ -94,7 +94,7 @@ namespace ExternalFeedConverter.Core.Test
             var sut = new FileImportProcess(fileImporter, outputWriter, calculator, configuration);
             
             // Act
-            var actual = sut.LoadData($@"{input}\test.csv");
+            var actual = sut.LoadData($@"{input}test.csv");
             
             // Assert
             actual.Should().BeEquivalentTo(expected);
