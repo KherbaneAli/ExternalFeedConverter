@@ -52,7 +52,7 @@ namespace ExternalFeedConverter.Core
 
                 var input = Console.ReadLine();
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 var calculated = _calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
                 

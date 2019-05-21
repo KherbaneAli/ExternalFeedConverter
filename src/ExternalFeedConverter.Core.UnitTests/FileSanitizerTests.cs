@@ -5,7 +5,7 @@ using Xunit;
 
 namespace ExternalFeedConverter.Core.Test
 {
-    public class FileSanitizerTests
+    public static class FileSanitizerTests
     {
         [Fact]
         public static void Should_Sanitise_ReturnTheContentWithoutEmptyLines_WhenThereIsOne()

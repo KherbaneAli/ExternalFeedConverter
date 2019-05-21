@@ -6,7 +6,7 @@ using Xunit;
 
 namespace ExternalFeedConverter.Core.Test
 {
-    public class FileLoaderTests
+    public static class FileLoaderTests
     {
         [Fact]
         public static void Should_Load_ReturnDataItemWithFieldsFromArray_WhenInputIsValid()
@@ -15,15 +15,17 @@ namespace ExternalFeedConverter.Core.Test
             string[] input = new string[]
             {
                 "Tree,Girth,Height,Volume",
-                "1,8.3,70,10.3"
+                "1,8.3,70,10.3,Willow,False"
             };
             
             var expected = new DataItem
                 (
-                    "1",
-                    "8.3",
-                    "70",
-                    "10.3"
+                    1,
+                    8.3,
+                    70,
+                    10.3,
+                    "Willow",
+                    false
                 );
             
             var fileProvider = Substitute.For<IFileProvider>();

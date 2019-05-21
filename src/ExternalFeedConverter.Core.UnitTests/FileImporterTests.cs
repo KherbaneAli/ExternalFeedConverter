@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Cavity.Data;
 using ExternalFeedConverter.Core.Data;
+using ExternalFeedConverter.Core.Extensions;
 using ExternalFeedConverter.Core.Files;
 using FluentAssertions;
 using NSubstitute;
@@ -13,7 +12,7 @@ using Xunit;
 
 namespace ExternalFeedConverter.Core.Test
 {
-    public class FileImporterTests
+    public static class FileImporterTests
     {
         [Fact]
         public static void Should_Import_ReturnException_WhenFileNotFound()
@@ -44,8 +43,8 @@ namespace ExternalFeedConverter.Core.Test
             var inpdata = new[]
             {
                 "Index, Girth (in), Height (ft), Volume(ft^3)",
-                "1,   8.3,     70,   10.3",
-                "2,   8.6,     65,   10.3"
+                "1,   8.3,     70,   10.3, Willow, True",
+                "2,   8.6,     65,   10.3, Oak, False"
             };
             
             File.WriteAllText(@"test.csv", string.Join(",", inpdata));
@@ -56,10 +55,12 @@ namespace ExternalFeedConverter.Core.Test
                 let data = row.Split(',')
                 select new DataItem
                 (
-                    data[0],
-                    data[1],
-                    data[2],
-                    data[3]
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
                 );
             
             var fileProvider = Substitute.For<IFileProvider>();
@@ -106,15 +107,17 @@ namespace ExternalFeedConverter.Core.Test
             string[] input = new string[]
             {
                 "Tree,Girth,Height,Volume",
-                "1,8.3,70,10.3"
+                "1,8.3,70,10.3,Oak,True"
             };
             
             var expected = new DataItem
             (
-                "1",
-                "8.3",
-                "70",
-                "10.3"
+                1,
+                8.3,
+                70,
+                10.3,
+                "Oak",
+                true
             );
             
             var fileProvider = Substitute.For<IFileProvider>();

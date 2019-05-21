@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using ExternalFeedConverter.Core.Calculator;
 using ExternalFeedConverter.Core.Data;
+using ExternalFeedConverter.Core.Extensions;
 using FluentAssertions;
 using Xunit;
 
-// FIX THIS TESTING
 namespace ExternalFeedConverter.Core.Test
 {
     public class CalculatorTests
@@ -19,9 +19,8 @@ namespace ExternalFeedConverter.Core.Test
             var input = "Girth";
             var inpdata = new[]
             {
-
-                "1,   8.3,     70,   10.3",
-                "2,   8.6,     65,   10.3"
+                "1,   8.3,     70,   10.3,    Willow,    True",
+                "2,   8.6,     65,   10.3,    Oak,    True"
             };
 
             var expected = 8.6;
@@ -30,10 +29,12 @@ namespace ExternalFeedConverter.Core.Test
                 let data = row.Split(',')
                 select new DataItem
                 (
-                    data[0],
-                    data[1],
-                    data[2],
-                    data[3]
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
                 );
 
             
@@ -43,7 +44,7 @@ namespace ExternalFeedConverter.Core.Test
             var actual = sut.CalculateLargest(input, dataitems);
 
             // Assert
-            actual.Should().BeGreaterOrEqualTo(expected);
+            actual.Should().Be(expected);
 
         }
 
@@ -54,9 +55,8 @@ namespace ExternalFeedConverter.Core.Test
             var input = "Height";
             var inpdata = new[]
             {
-                "Index, Girth (in), Height (ft), Volume(ft^3)",
-                "1,   8.3,     70,   10.3",
-                "2,   8.6,     65,   10.3"
+                "1,   8.3,     70,   10.3,    Willow,    True",
+                "2,   8.6,     65,   10.3,    Oak,    True"
             };
 
             var expected = 70;
@@ -65,10 +65,12 @@ namespace ExternalFeedConverter.Core.Test
                 let data = row.Split(',')
                 select new DataItem
                 (
-                    data[0],
-                    data[1],
-                    data[2],
-                    data[3]
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
                 );
             
             var sut = new Calculator.Calculator(commandValues);
@@ -77,7 +79,7 @@ namespace ExternalFeedConverter.Core.Test
             var actual = sut.CalculateLargest(input, dataitems);
 
             // Assert
-            actual.Should().BeGreaterOrEqualTo(expected);
+            actual.Should().Be(expected);
         }
 
         [Fact]
@@ -87,9 +89,8 @@ namespace ExternalFeedConverter.Core.Test
             var input = "Volume";
             var inpdata = new[]
             {
-                "Index, Girth (in), Height (ft), Volume(ft^3)",
-                "1,   8.3,     70,   10.3",
-                "2,   8.6,     65,   19.3"
+                "1,   8.3,     70,   19.3,    Willow,    True",
+                "2,   8.6,     65,   10.3,    Oak,    True"
             };
 
             var expected = 19.3;
@@ -98,10 +99,12 @@ namespace ExternalFeedConverter.Core.Test
                 let data = row.Split(',')
                 select new DataItem
                 (
-                    data[0],
-                    data[1],
-                    data[2],
-                    data[3]
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
                 );
 
             var sut = new Calculator.Calculator(commandValues);
@@ -110,7 +113,7 @@ namespace ExternalFeedConverter.Core.Test
             var actual = sut.CalculateLargest(input, dataitems);
 
             // Assert
-            actual.Should().BeGreaterOrEqualTo(expected);
+            actual.Should().Be(expected);
         }
     }
 }

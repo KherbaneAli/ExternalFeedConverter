@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using ExternalFeedConverter.Core.Calculator;
 using ExternalFeedConverter.Core.Data;
+using ExternalFeedConverter.Core.Extensions;
 using ExternalFeedConverter.Core.Files;
 using ExternalFeedConverter.Core.Output;
 using FluentAssertions;
@@ -13,7 +14,7 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace ExternalFeedConverter.Core.Test
 {
-    public class FileImportProcessTests
+    public static class FileImportProcessTests
     {
         
         
@@ -62,8 +63,8 @@ namespace ExternalFeedConverter.Core.Test
             var inpdata = new[]
             {
                 "Index, Girth (in), Height (ft), Volume(ft^3)",
-                "1,   8.3,     70,   10.3",
-                "2,   8.6,     65,   10.3"
+                "1,   8.3,     70,   10.3, Willow, True",
+                "2,   8.6,     65,   10.3, Oak, False"
             };
             
             File.WriteAllText(@"test.csv", string.Join(",", inpdata));
@@ -74,10 +75,12 @@ namespace ExternalFeedConverter.Core.Test
                 let data = row.Split(',')
                 select new DataItem
                 (
-                    data[0],
-                    data[1],
-                    data[2],
-                    data[3]
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
                 );
             
             var fileProvider = Substitute.For<IFileProvider>();

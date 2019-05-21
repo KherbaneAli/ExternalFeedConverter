@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ExternalFeedConverter.Core.Data;
-using ExternalFeedConverter.Core.Extensions;
 
 namespace ExternalFeedConverter.Core.Calculator
 {
@@ -10,8 +9,8 @@ namespace ExternalFeedConverter.Core.Calculator
     {
         private readonly List<CommandValue> _commandValues;
 
-        private readonly Dictionary<string, Func<DataItem, string>> _selectors =
-            new Dictionary<string, Func<DataItem, string>>
+        private readonly Dictionary<string, Func<DataItem, double>> _selectors =
+            new Dictionary<string, Func<DataItem, double>>
             {
                 {Commands.Girth, d => d.Girth},
                 {Commands.Height, d => d.Height},
@@ -34,7 +33,7 @@ namespace ExternalFeedConverter.Core.Calculator
                 return -1;
             }
             
-            double currentLargest = dataItems.Max(d => _selectors[input](d).ToDouble());
+            double currentLargest = dataItems.Max(_selectors[input]);
 
             var value = _commandValues.FirstOrDefault(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
                 ?.Value;

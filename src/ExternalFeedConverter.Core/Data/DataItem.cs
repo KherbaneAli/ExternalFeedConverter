@@ -1,18 +1,25 @@
+using System;
+
 namespace ExternalFeedConverter.Core.Data
 {
     public class DataItem
     {
-        public DataItem(string index, string girth, string height, string volume)
+        public DataItem(int index, double girth, double height, double volume, string type, bool chopped)
         {
             Height = height;
             Girth = girth;
             Index = index;
             Volume = volume;
+            Type = type;
+            Chopped = chopped;
+
         }
 
-        public string Index { get; }
-        public string Girth { get; }
-        public string Height { get; }
-        public string Volume { get; }
+        public int Index { get; }
+        public double Girth { get; }
+        public double Height { get; }
+        public double Volume { get; }
+        public string Type { get; }
+        public Boolean Chopped { get; }
     }
 }
