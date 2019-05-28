@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cavity;
+using ExternalFeedConverter.Core.Calculator;
 using ExternalFeedConverter.Core.Data;
 
 namespace ExternalFeedConverter.Core.Calculator
@@ -9,6 +12,15 @@ namespace ExternalFeedConverter.Core.Calculator
     {
         private readonly List<CommandValue> _commandValues;
 
+        private readonly Dictionary<string, string> _types =
+            new Dictionary<string, string>
+            {
+                {"Avg", "average"},
+                {"Max", "maximum"},
+                {"Min", "minimum"},
+                {"Sum", "total"},
+            };
+        
         private readonly Dictionary<string, Func<DataItem, double>> _selectors =
             new Dictionary<string, Func<DataItem, double>>
             {
@@ -22,25 +34,38 @@ namespace ExternalFeedConverter.Core.Calculator
             _commandValues = commandValues ?? throw new ArgumentNullException(nameof(commandValues));
         }
 
-        public double CalculateLargest(string input, IEnumerable<DataItem> dataItems)
+        public double CalculateValue(string input, string type, IEnumerable<DataItem> dataItems)
         {
             if (input == Commands.Exit)
                 Environment.Exit(0);
 
-            if (_selectors.ContainsKey(input) == false)
+            if (_types.ContainsKey(type) == false)
             {
-                Console.WriteLine($"\n{input} is an invalid input! Try again.. or enter 'exit' to terminate.");
+                Console.WriteLine($"\n{type} is an invalid type! Try again.. or enter 'exit' to terminate.");
                 return -1;
             }
             
-            double currentLargest = dataItems.Max(_selectors[input]);
+            if (_selectors.ContainsKey(input) == false){
+                Console.WriteLine($"\n{input} is an invalid input! Try again.. or enter 'exit' to terminate.");
+                return -1;    
+            }
 
-            var value = _commandValues.FirstOrDefault(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
+        var value = _commandValues.FirstOrDefault(m => m.Name.Equals(input, StringComparison.CurrentCultureIgnoreCase))
                 ?.Value;
+            
+            var current = 0.0;
 
-            Console.WriteLine($"\nLargest Tree {input}: {currentLargest}{value}.");
+            if (type.Equals("Avg")) current = current = dataItems.Average(_selectors[input]);
 
-            return currentLargest;
+            else if (type.Equals("Max")) current = current = dataItems.Max(_selectors[input]);
+
+            else if (type.Equals("Min")) current = current = dataItems.Min(_selectors[input]);
+
+            else if (type.Equals("Sum")) current = current = dataItems.Sum(_selectors[input]);
+
+            Console.WriteLine($"\n{type} Tree {input}: {current}{value}.");
+            
+            return current;
         }
         
     }

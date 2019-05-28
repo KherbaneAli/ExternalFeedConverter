@@ -48,13 +48,19 @@ namespace ExternalFeedConverter.Core
             while (finished == false)
             {
                 Console.Write(
-                    "\nPlease enter the attribute (girth/height/volume) you would like to find the largest of: ");
+                    "\nPlease enter the type (avg/max/min/sum) you would like to calculate: ");
+
+                var type = Console.ReadLine();
+                
+                Console.Write(
+                    "\nPlease enter the attribute (girth/height/volume) you would like to calculate for: ");
 
                 var input = Console.ReadLine();
 
+                Console.WriteLine($"{type} and {input}");
                 Thread.Sleep(500);
 
-                var calculated = _calculator.CalculateLargest(input.ToCapitalCase(), enumerable);
+                var calculated = _calculator.CalculateValue(input.ToCapitalCase(), type.ToCapitalCase(), enumerable);
                 
                 if (!(calculated > 0)) continue;
                 Console.WriteLine("\nWould you like to calculate another value? (y/n): ");

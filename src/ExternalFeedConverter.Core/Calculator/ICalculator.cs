@@ -5,6 +5,6 @@ namespace ExternalFeedConverter.Core.Calculator
 {
     public interface ICalculator
     {
-        double CalculateLargest(string input, IEnumerable<DataItem> dataItems);
+        double CalculateValue(string input, string type, IEnumerable<DataItem> dataItems);
     }
 }
