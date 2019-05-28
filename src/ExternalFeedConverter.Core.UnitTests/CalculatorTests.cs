@@ -425,5 +425,73 @@ namespace ExternalFeedConverter.Core.Test
             // Assert
             actual.Should().Be(expected);
         }
+        
+        [Fact]
+        public static void Should_ReturnNegativeForType_WhenInputIsInvalid()
+        {
+            // Arrange
+            var input = "Volume";
+            var inpdata = new[]
+            {
+                "1,   8.3,     70,   19.3,    Willow,    True",
+                "2,   8.6,     65,   10.3,    Oak,    True"
+            };
+
+            var expected = -1;
+            
+            var dataitems = from row in inpdata
+                let data = row.Split(',')
+                select new DataItem
+                (
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
+                );
+
+            var sut = new Calculator.Calculator(commandValues);
+
+            // Act
+            var actual = sut.CalculateValue(input, "um", dataitems);
+
+            // Assert
+            actual.Should().Be(expected);
+        }
+        
+        [Fact]
+        public static void Should_ReturnNegativeForAttribute_WhenInputIsInvalid()
+        {
+            // Arrange
+            var input = "xx";
+            var inpdata = new[]
+            {
+                "1,   8.3,     70,   19.3,    Willow,    True",
+                "2,   8.6,     65,   10.3,    Oak,    True"
+            };
+
+            var expected = -1;
+            
+            var dataitems = from row in inpdata
+                let data = row.Split(',')
+                select new DataItem
+                (
+                    data[0].ToInt(),
+                    data[1].ToDouble(),
+                    data[2].ToDouble(),
+                    data[3].ToDouble(),
+                    data[4],
+                    data[5].ToBoolean()
+                );
+
+            var sut = new Calculator.Calculator(commandValues);
+
+            // Act
+            var actual = sut.CalculateValue(input, "Sum", dataitems);
+
+            // Assert
+            actual.Should().Be(expected);
+        }
     }
 }
