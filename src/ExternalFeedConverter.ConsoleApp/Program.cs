@@ -50,7 +50,7 @@ namespace ExternalFeedConverter.ConsoleApp
                 configuration.GetSection("CalculationOption").Bind(commandValues);
                 
                 return new Calculator(commandValues);
-            });
+            }); //TODO: seperate into class
             return services.BuildServiceProvider();
         }
 

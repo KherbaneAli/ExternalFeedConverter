@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Cavity;
-using ExternalFeedConverter.Core.Calculator;
 using ExternalFeedConverter.Core.Data;
 
 namespace ExternalFeedConverter.Core.Calculator
@@ -46,7 +43,7 @@ namespace ExternalFeedConverter.Core.Calculator
             }
             
             if (_selectors.ContainsKey(input) == false){
-                Console.WriteLine($"\n{input} is an invalid input! Try again.. or enter 'exit' to terminate.");
+                Console.WriteLine($"\n{input} is an invalid attribute! Try again.. or enter 'exit' to terminate.");
                 return -1;    
             }
 
