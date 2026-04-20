@@ -1,1 +1,0 @@
-[![Known Vulnerabilities](https://snyk.io/test/github/KherbaneAli/ExternalFeedConverter/badge.svg?targetFile=src%2FExternalFeedConverter.ConsoleApp%2FExternalFeedConverter.ConsoleApp.csproj)](https://snyk.io/test/github/KherbaneAli/ExternalFeedConverter?targetFile=src%2FExternalFeedConverter.ConsoleApp%2FExternalFeedConverter.ConsoleApp.csproj)
